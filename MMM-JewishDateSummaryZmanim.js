@@ -94,7 +94,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (title.includes('Havdalah')) {
                 title = "✨  " + title.split(": ")[1];
             }
-                .replace("Havdalah: ", "✨  ");
             
             const isCandleLighting = title.includes("🕯️");
             const isHavdallah = title.includes("✨");
