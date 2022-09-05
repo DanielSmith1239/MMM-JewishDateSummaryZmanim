@@ -66,6 +66,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         this.items = this.filterResults(this.items);
         
         var candleLightingDate = null;
+        var candleLightingDates = [];
 
         for (var i in this.items) {
             var item = this.items[i];
@@ -78,22 +79,24 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             const isHavdallah = title.includes("✨");
             
             const actualDate = moment(item["date"]).toDate();
+            const dateStr = actualDate.getMonth() + "/" + actualDate.getDate();
             
             if (candleLightingDate != null && (isCandleLighting || isHavdallah)) {
+                candleLightingDates.push(dateStr);
                 date = candleLightingDate;
             } else if (date == "Friday") {
-                date = "Shabbos " + actualDate.getMonth() + "/" + actualDate.getDate();
+                date = "Shabbos " + dateStr;
             } else if (date === "Saturday") {
                 date = "Shabbos";
             }
             
             if (candleLightingDate == null && isCandleLighting) {
+                candleLightingDates.push(dateStr);
                 candleLightingDate = date;
             }
 
-            if(events.hasOwnProperty(date) || title.includes("✨")) {
-                if (title.includes("✨"))
-                    events[date].push(title);
+            if(events.hasOwnProperty(date)) {
+                events[date].push(title);
             }
             else {
                 events[date] = [title];
@@ -107,15 +110,24 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             var dayEvents = events[eventKeys[i]];
 
             if (dayEvents) {
+                var isToday = false;
+                if (day.includes("/")) {
+                    const today = new Date();
+                    const dateStr = today.getMonth() + "/" + today.getDate();
+                    isToday = candleLightingDates.includes(dateStr);
+                }
+                
                 dateEl = document.createElement("div");
                 dateEl.className = "small";
+                if (isToday) { dateEl.className = dateEl.className + " bright"; }
                 dateEl.innerHTML = day;
+                                
                 wrapper.appendChild(dateEl);
 
                 for (var e in dayEvents) {
                     eventEl = document.createElement("div");
-//                     eventEl.className = "small";
                     eventEl.className = "medium bright";
+                    if (isToday) { eventEl.className = eventEl.className + " bright"; }
                     eventEl.innerHTML = dayEvents[e];
 //                     eventEl.style["text-indent"] = "1em";
                     wrapper.appendChild(eventEl);
