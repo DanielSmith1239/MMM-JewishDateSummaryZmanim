@@ -68,7 +68,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         for (var i in this.items) {
             var item = this.items[i];
             var date = moment(item["date"]).calendar().split(" at")[0];
-            var title = item["title"];
+            var title = item["title"]
+                .replace("Candle lighting: ", "🕯️")
+                .replace("Havdalah: ", "✨");
 
             if (date === "Saturday") {date = "Shabbos";}
 
