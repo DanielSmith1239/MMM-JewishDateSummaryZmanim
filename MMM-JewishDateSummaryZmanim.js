@@ -155,9 +155,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     
     isAfterDate: function(date, isAfter) {
       const temp = isAfter;        
-      return date.getFullYear() >= today.getFullYear() &&
-        date.getMonth() >= today.getMonth() &&
-        date.getDate() >= today.getDate();
+      return date.getFullYear() >= isAfter.getFullYear() &&
+        date.getMonth() >= isAfter.getMonth() &&
+        date.getDate() >= isAfter.getDate();
     },
     
     isAfterToday: function(date) {
