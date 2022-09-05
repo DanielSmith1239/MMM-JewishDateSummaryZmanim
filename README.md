@@ -1,5 +1,5 @@
-# MMM-shabat
-Shabbat times for MagicMirror<sup>2</sup> made possible by the awesome [Hebcal API](https://www.hebcal.com/home/developer-apis).
+# MMM-JewishDateSummary
+Shows a summary of the current Jewish date, including any candle lighting and havdallah times (for shabbos/yom tov).
 
 ## Dependencies
   * An installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
