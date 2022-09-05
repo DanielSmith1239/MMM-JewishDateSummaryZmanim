@@ -96,7 +96,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     eventEl = document.createElement("div");
                     eventEl.className = "small";
                     eventEl.innerHTML = dayEvents[e];
-                    eventEl.style["text-indent"] = "1em";
+//                     eventEl.style["text-indent"] = "1em";
                     wrapper.appendChild(eventEl);
                 }
             }
