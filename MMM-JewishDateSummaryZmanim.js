@@ -64,6 +64,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         var events = {};
         
         this.items = this.filterResults(this.items);
+        
+        var candleLightingDate = null;
 
         for (var i in this.items) {
             var item = this.items[i];
@@ -72,15 +74,25 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 .replace("Candle lighting: ", "🕯️ ")
                 .replace("Havdalah: ", "✨ ");
             
+            const isCandleLighting = title.includes("🕯️");
+            const isHavdallah = title.includes("✨");
+            
             const actualDate = moment(item["date"]).toDate();
             
-            if (date == "Friday") {
+            if (candleLightingDate != null && (isCandleLighting || isHavdallah)) {
+                date = candleLightingDate;
+            } else if (date == "Friday") {
                 date = "Shabbos " + actualDate.getMonth() + "/" + actualDate.getDate();
             } else if (date === "Saturday") {
                 date = "Shabbos";
             }
+            
+            if (candleLightingDate == null && isCandleLighting) {
+                candleLightingDate = date;
+            }
 
             if(events.hasOwnProperty(date) || title.includes("✨")) {
+                if (title.includes("✨"))
                     events[date].push(title);
             }
             else {
