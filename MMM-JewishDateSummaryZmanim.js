@@ -62,6 +62,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         }
 
         var events = {};
+        
+        this.items = filterResults(this.items);
 
         for (var i in this.items) {
             var item = this.items[i];
@@ -150,6 +152,28 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         var url = 'https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=on&mod=on&nx=on&year=now&month=x&ss=on&mf=on&c=on&geo=pos&latitude=42.480202&M=on&longitude=-83.240997'
         return url
     },
+    
+    filterResults: function(items) {
+        // TODO:
+        // - Check if havdalah is before candle lighting beginning of year
+        // - Check if missing havdallah end of year
+        
+        const today = new Date();
+        var lastCandleLightingBeforeNow = new Date();
+        
+        const itemsAfterNow = items.filter(item => moment(item["date"]).toDate() >= today);
+        const candleLightingItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "candles");
+        const havdallahItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "havdalah");
+        
+        const lastCandleLightingDate = moment(candleLightingItemsAfterNow[0]["date"]).toDate();
+        
+        if (lastCandleLightingDate < moment(havdallahItemsAfterNow[0]["date"]).toDate()) {
+            return itemsAfterNow;
+        }
+            
+        const itemsAfterMostRecentCandleLighting = items.filter(item => moment(item["date"]).toDate() >= lastCandleLightingDate);
+        return itemsAfterMostRecentCandleLighting;
+    }
 
     processTimes: function(data) {
         if (!data || !data['items']) {
