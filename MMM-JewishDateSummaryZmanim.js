@@ -80,7 +80,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 date = "Shabbos";
             }
 
-            if(events.hasOwnProperty(date) && !title.includes("✨")) {
+            if(events.hasOwnProperty(date) || title.includes("✨")) {
                     events[date].push(title);
             }
             else {
