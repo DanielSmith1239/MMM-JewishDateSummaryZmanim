@@ -50,7 +50,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         if (ret.includes(" (CH''M)")) { ret = ret.replace(" (CH''M)", ""); }
         
         // Remove "Erev"; increment roman numerals
-        if (ret.includes("Erev") { ret = ret.replace("Erev ", "") + " I"; }
+        if (ret.includes("Erev")) { ret = ret.replace("Erev ", "") + " I"; }
         else if (ret.endsWith(" I")) { ret = ret.replace(" I", " II"); }
         else if (ret.endsWith(" VII")) { ret = ret.replace(" VII", " VIII"); }
 
