@@ -1,10 +1,10 @@
 {
-  "name": "mmm-shabbat",
+  "name": "MMM-JewishDateSummaryZmanim",
   "version": "1.0.0",
   "description": "Shabbat times for MagicMirror2",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sheyabernstein/mmm-shabbat.git"
+    "url": "git+https://github.com//DanielSmith1239/MMM-JewishDateSummaryZmanim/"
   },
   "keywords": [
     "MagicMirror",
@@ -15,7 +15,7 @@
   "author": "sheyabernstein",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sheyabernstein/mmm-shabbat/issues"
+    "url": "https://github.com/DanielSmith1239/MMM-JewishDateSummaryZmanim/issues"
   },
-  "homepage": "https://github.com/sheyabernstein/mmm-shabbat#readme"
+  "homepage": "https://github.com/DanielSmith1239/MMM-JewishDateSummaryZmanim#readme"
 }
