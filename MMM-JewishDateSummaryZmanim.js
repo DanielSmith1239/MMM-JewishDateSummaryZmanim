@@ -39,6 +39,23 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         this.loaded = false;
         this.scheduleUpdate(this.config.initialLoadDelay);
     },
+    
+    processMemo: function(memo) {
+        var ret = memo;
+        
+        // Rosh Hashana
+        if (ret.includes("Rosh Hashana 5")) { return "Rosh Hashana"; }
+        
+        // Chol hamoed
+        if (ret.includes(" (CH''M)")) { ret = ret.replace(" (CH''M)", ""); }
+        
+        // Remove "Erev"; increment roman numerals
+        if (ret.includes("Erev") { ret = ret.replace("Erev ", "") + " I"; }
+        else if (ret.endsWith(" I")) { ret = ret.replace(" I", " II"); }
+        else if (ret.endsWith(" VII")) { ret = ret.replace(" VII", " VIII"); }
+
+        return ret;
+    },
 
     // Override dom generator.
     getDom: function() {
@@ -92,7 +109,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 if (item["memo"] != null) {
                     const today = new Date();
                     const isToday = today.getDate() === actualDate.getDate();
-                    date = item["memo"];
+                    date = this.processMemo(item["memo"]);
                     if (!isToday) { date = date + " (" + dateStr + ")"; }
                 }
                 candleLightingDates.push(dateStr);
