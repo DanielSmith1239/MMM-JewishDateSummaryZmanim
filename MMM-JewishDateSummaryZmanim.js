@@ -89,7 +89,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             var item = this.items[i];
             var date = moment(item["date"]).calendar().split(" at")[0];
             var title = item["title"]
-                .replace("Candle lighting: ", "🕯️  ")
+                .replace("Candle lighting: ", "🕯️  ");
+            
+            if (title.includes('Havdalah')) {
+                title = "✨  " + title.split(": ")[1];
+            }
                 .replace("Havdalah: ", "✨  ");
             
             const isCandleLighting = title.includes("🕯️");
