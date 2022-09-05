@@ -126,7 +126,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
                 for (var e in dayEvents) {
                     eventEl = document.createElement("div");
-                    eventEl.className = "medium bright";
+                    eventEl.className = "medium";
                     if (isToday) { eventEl.className = eventEl.className + " bright"; }
                     eventEl.innerHTML = dayEvents[e];
 //                     eventEl.style["text-indent"] = "1em";
