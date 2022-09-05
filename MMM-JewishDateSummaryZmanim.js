@@ -86,11 +86,15 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 date = candleLightingDate;
             } else if (date == "Friday") {
                 date = "Shabbos " + dateStr;
-            } else if (date === "Saturday") {
-                date = "Shabbos";
             }
             
             if (candleLightingDate == null && isCandleLighting) {
+                if (item["memo"] != null) {
+                    const today = new Date();
+                    const isToday = today.getDate() === actualDate.getDate();
+                    date = item["memo"];
+                    if (!isToday) { date = date + " (" + dateStr + ")"; }
+                }
                 candleLightingDates.push(dateStr);
                 candleLightingDate = date;
             }
