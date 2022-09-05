@@ -230,8 +230,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         // - Check if havdalah is before candle lighting beginning of year
         // - Check if missing havdallah end of year
         const today = new Date();
-        const tomorrow = new Date();
-        tomorrow = tomorrow.setDate(tomorrow.getDate() + 1);
         
         const itemsAfterNow = items.filter(item => this.isAfterToday(moment(item["date"]).toDate()));
         
