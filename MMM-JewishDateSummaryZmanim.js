@@ -63,7 +63,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
         var events = {};
         
-        this.items = filterResults(this.items);
+        this.items = this.filterResults(this.items);
 
         for (var i in this.items) {
             var item = this.items[i];
