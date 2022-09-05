@@ -162,7 +162,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
     
     isAfterDate: function(date, isAfter) {
-      returrn date.getFullYear() >= isAfter.getFullYear() &&
+      return date.getFullYear() >= isAfter.getFullYear() &&
         date.getMonth() >= isAfter.getMonth() &&
         date.getDate() >= isAfter.getDate();
     },
