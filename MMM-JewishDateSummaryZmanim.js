@@ -195,7 +195,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         
         const candleLightings = filtered.filter(item => moment(item["date"]).toDate().getDate() <= today.getDate() 
                                                 && item["category"] == "candles"
-                                               && this.isAfterDate(lastHavdallahDate, moment(item["date"]).toDate().getDate()));
+                                               && this.isAfterDate(lastHavdallahDate, moment(item["date"]).toDate()));
         
         // Get final items
         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate()));
