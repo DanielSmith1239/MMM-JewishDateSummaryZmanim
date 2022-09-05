@@ -108,13 +108,14 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
             if (dayEvents) {
                 dateEl = document.createElement("div");
-                dateEl.className = "xsmall light";
+                dateEl.className = "small";
                 dateEl.innerHTML = day;
                 wrapper.appendChild(dateEl);
 
                 for (var e in dayEvents) {
                     eventEl = document.createElement("div");
 //                     eventEl.className = "small";
+                    eventEl.className = "medium bright";
                     eventEl.innerHTML = dayEvents[e];
 //                     eventEl.style["text-indent"] = "1em";
                     wrapper.appendChild(eventEl);
