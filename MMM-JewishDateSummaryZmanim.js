@@ -230,6 +230,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         // - Check if havdalah is before candle lighting beginning of year
         // - Check if missing havdallah end of year
         const today = new Date();
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
         
         const itemsAfterNow = items.filter(item => this.isAfterToday(moment(item["date"]).toDate()));
         
@@ -256,7 +261,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                                                && this.isAfterDate(firstHavdallahDate, moment(item["date"]).toDate()));  
         
         const fastItems = filtered.filter(item => item["title"].includes("Fast begins")
-                                               && this.isAfterDate(firstFastEndDate, moment(item["date"]).toDate()));
+                                               && this.isAfterDate(moment(item["date"]).toDate(), yesterday)
+                                               && this.isAfterDate(tomorrow, moment(item["date"]).toDate())
+                                               && this.isAfterDate(firstFastEndDate, moment(item["date"]).toDate())
+                                                                );
         
         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate()));
         
