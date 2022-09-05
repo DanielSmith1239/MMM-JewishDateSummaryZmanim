@@ -69,12 +69,18 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             var item = this.items[i];
             var date = moment(item["date"]).calendar().split(" at")[0];
             var title = item["title"]
-                .replace("Candle lighting: ", "🕯️")
-                .replace("Havdalah: ", "✨");
+                .replace("Candle lighting: ", "🕯️ ")
+                .replace("Havdalah: ", "✨ ");
+            
+            const actualDate = moment(item["date"]).toDate();
+            
+            if (date == "Friday") {
+                date = "Shabbos " + actualDate.getMonth() + "/" + actualDate.getDate();
+            } else if (date === "Saturday") {
+                date = "Shabbos";
+            }
 
-            if (date === "Saturday") {date = "Shabbos";}
-
-            if(events.hasOwnProperty(date)) {
+            if(events.hasOwnProperty(date) && !title.includes("✨")) {
                     events[date].push(title);
             }
             else {
@@ -156,13 +162,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
     
     isAfterDate: function(date, isAfter) {
-        console.log("date: " + date.getFullYear() + "-"+ date.getMonth() + "-"+ date.getDate() + "-");
-        console.log("isAfter: " + isAfter.getFullYear() + "-"+ isAfter.getMonth() + "-"+ isAfter.getDate() + "-");
-      const ret = date.getFullYear() >= isAfter.getFullYear() &&
+      returrn date.getFullYear() >= isAfter.getFullYear() &&
         date.getMonth() >= isAfter.getMonth() &&
         date.getDate() >= isAfter.getDate();
-      console.log("ret: " + ret + "\n");
-        return ret;
     },
     
     isAfterToday: function(date) {
