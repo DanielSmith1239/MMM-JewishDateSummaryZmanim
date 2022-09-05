@@ -182,17 +182,19 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         const havdallahItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "havdalah");
         
         const lastCandleLightingDate = moment(candleLightingItemsAfterNow[0]["date"]).toDate();
-        
+        const lastHavdallahDate = moment(havdallahItemsAfterNow[0]["date"]).toDate();
         var filtered = [];
         
-        if (this.isAfterDate(moment(havdallahItemsAfterNow[0]["date"]).toDate(), lastCandleLightingDate)) {
+        if (this.isAfterDate(lastHavdallahDate, lastCandleLightingDate)) {
             filtered = itemsAfterNow;
         } else {
             const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), lastCandleLightingDate));
             filtered = itemsAfterMostRecentCandleLighting;
         }
         
-        const candleLightings = filtered.filter(item => moment(item["date"]).toDate().getDate() <= today.getDate() && item["category"] == "candles");
+        const candleLightings = filtered.filter(item => moment(item["date"]).toDate().getDate() <= today.getDate() 
+                                                && item["category"] == "candles"
+                                               && this.isAfterDate(lastHavdallahDate, moment(item["date"]).toDate().getDate()));
         
         // Get final items
         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate()));
