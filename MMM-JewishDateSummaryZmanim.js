@@ -173,7 +173,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
         const itemsAfterMostRecentCandleLighting = items.filter(item => moment(item["date"]).toDate() >= lastCandleLightingDate);
         return itemsAfterMostRecentCandleLighting;
-    }
+    },
 
     processTimes: function(data) {
         if (!data || !data['items']) {
