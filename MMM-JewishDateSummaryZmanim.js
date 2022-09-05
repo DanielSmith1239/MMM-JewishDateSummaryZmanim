@@ -5,7 +5,7 @@
  * MIT Licensed.
  */
 
-Module.register("MMM-shabbat", {
+Module.register("MMM-JewishDateSummaryZmanim", {
 
     // Default module config.
     defaults: {
@@ -146,7 +146,8 @@ Module.register("MMM-shabbat", {
             ashkenaz = "off"
         }
 
-        var url = "https://www.hebcal.com/shabbat/?cfg=json&b=" + c.minutesBefore + "&m=" + c.minutesAfter + "&a=" + ashkenaz + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
+//         var url = "https://www.hebcal.com/shabbat/?cfg=json&b=" + c.minutesBefore + "&m=" + c.minutesAfter + "&a=" + ashkenaz + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
+        var url = 'https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=on&mod=on&nx=on&year=now&month=x&ss=on&mf=on&c=on&geo=pos&latitude=42.480202&M=on&longitude=-83.240997'
         return url
     },
 
