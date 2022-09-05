@@ -230,31 +230,41 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         // - Check if havdalah is before candle lighting beginning of year
         // - Check if missing havdallah end of year
         const today = new Date();
+        const tomorrow = new Date();
+        tomorrow = tomorrow.setDate(tomorrow.getDate() + 1);
         
         const itemsAfterNow = items.filter(item => this.isAfterToday(moment(item["date"]).toDate()));
+        
         const candleLightingItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "candles");
         const havdallahItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "havdalah");
+        const fastStartAfterNow = itemsAfterNow.filter(item => item["title"] === "Fast begins");
+        const fastEndAfterNow = itemsAfterNow.filter(item => item["title"] === "Fast ends");
         
-        const lastCandleLightingDate = moment(candleLightingItemsAfterNow[0]["date"]).toDate();
-        const lastHavdallahDate = moment(havdallahItemsAfterNow[0]["date"]).toDate();
+        const firstCandleLightingDate = moment(candleLightingItemsAfterNow[0]["date"]).toDate();
+        const firstHavdallahDate = moment(havdallahItemsAfterNow[0]["date"]).toDate();
+        const firstFastStartDate = moment(fastStartAfterNow[0]["date"]).toDate();
+        const firstFastEndDate = moment(fastEndAfterNow[0]["date"]).toDate();
+        
         var filtered = [];
         
-        if (this.isAfterDate(lastHavdallahDate, lastCandleLightingDate)) {
+        if (this.isAfterDate(firstHavdallahDate, firstCandleLightingDate) && this.isAfterDate(firstFastEndDate, firstFastStartDate)) {
             filtered = itemsAfterNow;
         } else {
-            const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), lastCandleLightingDate));
+            const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), firstCandleLightingDate));
             filtered = itemsAfterMostRecentCandleLighting;
         }
         
         const candleLightings = filtered.filter(item => item["category"] == "candles"
-                                               && this.isAfterDate(lastHavdallahDate, moment(item["date"]).toDate()));
+                                               && this.isAfterDate(firstHavdallahDate, moment(item["date"]).toDate()));  
         
-        console.log("size: " + candleLightings.length);
+        const fastItems = filtered.filter(item => item["title"].includes("Fast begins")
+                                               && this.isAfterDate(firstFastEndDate, moment(item["date"]).toDate()));
         
-        // Get final items
         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate()));
         
-        return [...todayItems, ...candleLightings, havdallahItemsAfterNow[0]];
+        
+        
+        return [...todayItems, ...fastItems, ...candleLightings, havdallahItemsAfterNow[0]];
         
     },
 
