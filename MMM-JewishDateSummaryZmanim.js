@@ -153,26 +153,52 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         return url
     },
     
+    isAfterDate: function(date, isAfter) {
+      const temp = isAfter;
+      isAfter.setHours(23, 59, 59, 998);
+      return date >= isAfter;
+    },
+    
+    isAfterToday: function(date) {
+      const today = new Date();
+      return this.isAfterDate(date, today)
+    },
+    
+    isToday: function(date) {
+      const today = new Date();
+      return date.getFullYear() === today.getFullYear() &&
+        date.getMonth() === today.getMonth() &&
+        date.getDate() === today.getDate();
+    },
+    
     filterResults: function(items) {
         // TODO:
         // - Check if havdalah is before candle lighting beginning of year
         // - Check if missing havdallah end of year
-        
         const today = new Date();
-        var lastCandleLightingBeforeNow = new Date();
         
-        const itemsAfterNow = items.filter(item => moment(item["date"]).toDate() >= today);
+        const itemsAfterNow = items.filter(item => this.isAfterToday(moment(item["date"]).toDate()));
         const candleLightingItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "candles");
         const havdallahItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "havdalah");
         
         const lastCandleLightingDate = moment(candleLightingItemsAfterNow[0]["date"]).toDate();
         
-        if (lastCandleLightingDate < moment(havdallahItemsAfterNow[0]["date"]).toDate()) {
-            return itemsAfterNow;
+        var filtered = [];
+        
+        if (this.isAfterDate(moment(havdallahItemsAfterNow[0]["date"]).toDate(), lastCandleLightingDate)) {
+            filtered = itemsAfterNow;
+        } else {
+            const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), lastCandleLightingDate));
+            filtered = itemsAfterMostRecentCandleLighting;
         }
-            
-        const itemsAfterMostRecentCandleLighting = items.filter(item => moment(item["date"]).toDate() >= lastCandleLightingDate);
-        return itemsAfterMostRecentCandleLighting;
+        
+        const candleLightings = filtered.filter(item => moment(item["date"]).toDate().getDate() <= today.getDate() && item["category"] == "candles");
+        
+        // Get final items
+        const todayItems = itemsAfterNow.filter(item => isToday(moment(item["date"]).toDate()));
+        
+        return [...todayItems, ...candleLightings, havdallahItemsAfterNow[0]];
+        
     },
 
     processTimes: function(data) {
