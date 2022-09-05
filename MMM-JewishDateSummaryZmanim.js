@@ -156,9 +156,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     isAfterDate: function(date, isAfter) {
         console.log("date: " + date.getFullYear() + "-"+ date.getMonth() + "-"+ date.getDate() + "-");
         console.log("isAfter: " + isAfter.getFullYear() + "-"+ isAfter.getMonth() + "-"+ isAfter.getDate() + "-");
-      return date.getFullYear() >= isAfter.getFullYear() &&
+      const ret = date.getFullYear() >= isAfter.getFullYear() &&
         date.getMonth() >= isAfter.getMonth() &&
         date.getDate() >= isAfter.getDate();
+      console.log("ret: " + ret + "\n");
+        return ret;
     },
     
     isAfterToday: function(date) {
@@ -197,6 +199,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         const candleLightings = filtered.filter(item => moment(item["date"]).toDate().getDate() <= today.getDate() 
                                                 && item["category"] == "candles"
                                                && this.isAfterDate(lastHavdallahDate, moment(item["date"]).toDate()));
+        
+        console.log("size: " + candleLightings.length);
         
         // Get final items
         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate()));
