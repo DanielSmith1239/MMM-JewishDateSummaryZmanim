@@ -137,7 +137,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var isToday = false;
                 if (day.includes("/")) {
                     const today = new Date();
-                    const dateStr = (actualDate.getMonth() + 1)+ "/" + today.getDate();
+                    const dateStr = (today.getMonth() + 1)+ "/" + today.getDate();
                     isToday = candleLightingDates.includes(dateStr);
                 }
                 
