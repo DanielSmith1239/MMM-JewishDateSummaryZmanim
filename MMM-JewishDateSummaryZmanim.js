@@ -99,7 +99,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             const isHavdallah = title.includes("✨");
             
             const actualDate = moment(item["date"]).toDate();
-            const dateStr = actualDate.getMonth() + "/" + actualDate.getDate();
+            const dateStr = (actualDate.getMonth() + 1) + "/" + actualDate.getDate();
             
             if (candleLightingDate != null && (isCandleLighting || isHavdallah)) {
                 candleLightingDates.push(dateStr);
@@ -137,7 +137,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var isToday = false;
                 if (day.includes("/")) {
                     const today = new Date();
-                    const dateStr = today.getMonth() + "/" + today.getDate();
+                    const dateStr = (actualDate.getMonth() + 1)+ "/" + today.getDate();
                     isToday = candleLightingDates.includes(dateStr);
                 }
                 
