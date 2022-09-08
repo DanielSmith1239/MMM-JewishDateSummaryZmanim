@@ -206,7 +206,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         }
 
 //         var url = "https://www.hebcal.com/shabbat/?cfg=json&b=" + c.minutesBefore + "&m=" + c.minutesAfter + "&a=" + ashkenaz + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
-        var url = "https://www.hebcal.com/hebcal?v=1&cfg=json&b=" + c.minutesBefore + "&m=" + c.minutesAfter + "&a=" + ashkenaz + "maj=on&min=on&mod=on&nx=on&year=now&month=x&ss=on&mf=on&c=on" + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
+        var url = "https://www.hebcal.com/hebcal?v=1&cfg=json&b=" + c.minutesBefore + "&a=" + ashkenaz + "maj=on&min=on&mod=on&nx=on&year=now&month=x&ss=on&mf=on&c=on" + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
         return url
     },
     
