@@ -104,7 +104,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (candleLightingDate != null && (isCandleLighting || isHavdallah)) {
                 candleLightingDates.push(dateStr);
                 date = candleLightingDate;
-            } else if (date == "Friday") {
+            } else if (actualDate.getDay() === 5) {
                 date = "Shabbos " + dateStr;
             }
             
@@ -260,7 +260,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             filtered = itemsAfterMostRecentCandleLighting;
         }
         
-        const candleLightings = filtered.filter(item => item["category"] == "candles"
+        const candleLightings = filtered.filter(item => item["category"] === "candles"
                                                && this.isAfterDate(firstHavdallahDate, moment(item["date"]).toDate()));  
         
         const fastItems = filtered.filter(item => item["title"].includes("Fast begins")
@@ -269,7 +269,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                                                && this.isAfterDate(firstFastEndDate, moment(item["date"]).toDate())
                                                                 );
         
-        const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate()));
+        const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate())
+                                                    && item["category"] != "candles"
+                                                    && item["category"] != "havdalah"
+                                               );
         
         
         
