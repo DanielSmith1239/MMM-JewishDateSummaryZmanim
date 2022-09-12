@@ -151,6 +151,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 for (var e in dayEvents) {
                     eventEl = document.createElement("div");
                     eventEl.className = "medium";
+                    if (dayEvents[e].includes("🕯️")) {
+                        eventEl.style = "float: left;";
+                    } else if (dayEvents[e].includes("✨")) {
+                        eventEl.style = "float: right;";
+                    }
                     if (isToday) { eventEl.className = eventEl.className + " bright"; }
                     eventEl.innerHTML = dayEvents[e];
 //                     eventEl.style["text-indent"] = "1em";
