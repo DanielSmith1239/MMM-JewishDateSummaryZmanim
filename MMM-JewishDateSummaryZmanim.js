@@ -87,6 +87,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         
         var candleLightingDate = null;
         var candleLightingDates = [];
+        
+        var titles = [];
+        var items = [];
 
         for (var i in this.items) {
             var item = this.items[i];
@@ -122,12 +125,15 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 candleLightingDate = date;
             }
 
-            if(events.hasOwnProperty(date)) {
+            if (events.hasOwnProperty(date)) {
                 events[date].push(title);
             }
             else {
                 events[date] = [title];
             }
+            
+            titles.push(title);
+            items.push(item);
         }
 
         eventKeys = Object.keys(events).slice(0, 3);
@@ -138,15 +144,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
             if (dayEvents) {
                 var isToday = false;
-                if (day.includes("/")) {
-                    const today = this.today;
-                    const dateStr = (today.getMonth() + 1)+ "/" + today.getDate();
-                    isToday = candleLightingDates.includes(dateStr);
-                }
+                var eventDate = 
                 
                 dateEl = document.createElement("div");
                 dateEl.className = "small";
-                if (isToday) { dateEl.className = dateEl.className + " bright"; }
+                
                 dateEl.innerHTML = day;
                                 
                 wrapper.appendChild(dateEl);
@@ -154,9 +156,17 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var processedCandleLighting = false;
                 var isMinorCandleLighting = false;
 
-                for (var e in dayEvents) {
+                for (let [index, e] of dayEvents.entries()) {
                     var eventEl = document.createElement("div");
                     eventEl.className = "medium";
+                    
+                    const item = items[titles.indexOf(e)];
+
+                    isToday = item.getDate() === this.today.getDate();
+                    
+                    if (isToday) {
+                        eventEl.className = eventEl.className + " bright";
+                    }
                     
                     if (dayEvents[e].includes("✨") || dayEvents[e].includes("🕯️")) {
                         eventEl.style = "display: inline;";
@@ -178,7 +188,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                         eventEl.style = "";
                     }
                     
-                    if (isToday && !isMinorCandleLighting) { eventEl.className = eventEl.className + " bright"; }
+                    if (isToday && !isMinorCandleLighting) {
+                        eventEl.className = eventEl.className + " bright";
+                    }
+                    
                     isMinorCandleLighting = false;
                     eventEl.innerHTML = dayEvents[e];
 //                     eventEl.style["text-indent"] = "1em";
