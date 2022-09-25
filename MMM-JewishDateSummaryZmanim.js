@@ -263,7 +263,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
             return this.isAfterDate(itemDate, prevHavdallahDate)
                 && this.isAfterDate(nextHavdallahDate, itemDate);
-        }            
+        });
         
 
 //         const fastStartAfterNow = itemsAfterNow.filter(item => item["title"] === "Fast begins");
