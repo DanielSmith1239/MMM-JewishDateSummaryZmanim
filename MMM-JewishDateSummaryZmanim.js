@@ -117,7 +117,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (candleLightingDate == null && isCandleLighting) {
                 if (item["memo"] != null) {
                     if (item["memo"].includes("Parash")) {
-                        date += "|" + item["memo"];
+                        date += ": " + item["memo"];
                     } else {
                         const today = this.today;
                         date = this.processMemo(item["memo"]);
@@ -149,21 +149,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (dayEvents) {
                 var isToday = false;
                 
-                const splitDate = day.split("|");
-                const dayTitle = splitDate[0];
-                
                 var dateEl = document.createElement("div");
                 dateEl.className = "small bright";
-                dateEl.innerHTML = dayTitle;
+                dateEl.innerHTML = day;
                 wrapper.appendChild(dateEl);
-                
-                if (splitDate.length > 1) {
-                    const parsha = splitDate[1];
-                    var parshaEl = document.createElement("div");
-                    parshaEl.className = "small";
-                    parshaEl.innerHTML = parsha;
-                    wrapper.appendChild(parshaEl);
-                }
                 
                 var processedCandleLighting = false;
                 var isMinorCandleLighting = false;
