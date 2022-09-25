@@ -165,8 +165,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     if (dayEvents[e].includes("🕯️")) {
                         if (processedCandleLighting) {
                             isMinorCandleLighting = true;
+                            dayEvents[e] = dayEvents[e].replace("🕯️  ", "🕯️ (Day 2)
                         } else {
-                            eventEl.style = "display: inline; padding-right: 25px;";
+                            eventEl.style = "display: inline; padding-right: 50px;";
                         }
                         
                         processedCandleLighting = true;
