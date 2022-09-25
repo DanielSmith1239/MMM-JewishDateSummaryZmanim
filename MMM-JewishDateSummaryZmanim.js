@@ -200,6 +200,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                         eventEl.style = "display: inline;";
                     }
                     
+                    if (dayEvents[e].includes("🛑")) {
+                        eventEl.style = "display: inline; padding-right: 50px;";
+                    }
+                    
                     if (dayEvents[e].includes("🕯️")) {
                         if (processedCandleLighting) {
                             isMinorCandleLighting = true;
