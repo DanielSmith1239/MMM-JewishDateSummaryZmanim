@@ -53,8 +53,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         if (ret.includes(" (CH''M)")) { ret = ret.replace(" (CH''M)", ""); }
         
         // Remove "Erev"; increment roman numerals
-        if (ret.includes("Erev")) { ret = ret.replace("Erev ", "") + " I"; }
-        else if (ret.endsWith(" I")) { ret = ret.replace(" I", " II"); }
+        if (ret.includes("Erev")) { ret = ret.replace("Erev ", "") + ""; }
+        else if (ret.endsWith(" I")) { ret = ret.replace(" I", ""); }
         else if (ret.endsWith(" VII")) { ret = ret.replace(" VII", " VIII"); }
 
         return ret;
@@ -154,9 +154,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 for (var e in dayEvents) {
                     var eventEl = document.createElement("div");
                     eventEl.className = "medium";
-                    if (dayEvents[e].includes("🕯️")) {
+                    if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 1) {
                         eventEl.style = "float: left;";
-                    } else if (dayEvents[e].includes("✨")) {
+                    } else if (dayEvents[e].includes("✨") && candleLightingDates.length === 1) {
                         eventEl.style = "float: right;";
                     }
                     if (isToday) { eventEl.className = eventEl.className + " bright"; }
