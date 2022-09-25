@@ -52,7 +52,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         if (ret.includes(" (CH''M)")) { ret = ret.replace(" (CH''M)", ""); }
         
         // Remove "Erev"; increment roman numerals
-        if (ret.includes("Erev")) { ret = ret.replace("Erev ", "") + ""; }
+        if (ret.includes("Erev")) { ret = ret.replace("Erev ", ""); }
+        else if (ret.includes("(observed)")) { ret = ret.replace(" (observed)", ""); }
         else if (ret.endsWith(" I")) { ret = ret.replace(" I", ""); }
         else if (ret.endsWith(" VII")) { ret = ret.replace(" VII", " VIII"); }
 
@@ -100,6 +101,26 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 title = "✨  " + title.split(": ")[1];
             }
             
+            var isFastDay = false;
+            if (title.includes("Fast ")) {
+                isFastDay = true;
+                
+                var timeStr = (new Date(item["date"])).toLocaleString()
+                    .split(", ")[1];
+                const timeComponents = timeStr.split(" ");
+                const clockComponents = timeComponents[0].split(":");
+                const amPm = timeComponents[1].toLowerCase();
+                
+                const timeTitle = clockComponents[0] + clockComponents[1] + amPm;
+                
+                if (title === "Fast ends") {
+                    title = "🍽️  " + timeTitle;
+                } else if (title === "Fast begins") {
+                    title = "🛑  " + timeTitle;
+                }
+            }
+            
+
             const isCandleLighting = title.includes("🕯️");
             const isHavdallah = title.includes("✨");
             
@@ -111,6 +132,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 date = candleLightingDate;
             } else if (actualDate.getDay() === 5) {
                 date = "Shabbos " + dateStr;
+            }
+            
+            if (isFastDay) {
+                date = this.processMemo(item["memo"]);
             }
             
             
@@ -153,7 +178,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 dateEl.className = "small bright";
                 dateEl.innerHTML = day;
                 if (i > 0) {
-                    dateEl.style = "padding-top: 15px;";
+                    dateEl.style = "padding-top: 10px;";
                 }
                 wrapper.appendChild(dateEl);
                 
