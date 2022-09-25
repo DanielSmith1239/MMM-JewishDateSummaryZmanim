@@ -269,8 +269,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         // Between candle lighting and havdallah
         else {
             console.log("between dates");
-            const prevCandleLightingDates = items.filter(e => item["category"] === "candles"
-                                                       && this.isAfterDate(firstCandleLightingDate, new Date(e["date"])));
+            const prevCandleLightingDates = items.filter(item => item["category"] === "candles"
+                                                       && this.isAfterDate(firstCandleLightingDate, new Date(item["date"])));
             const prevCandleLightingDate = prevCandleLightingDates[prevCandleLightingDates.length - 1];
             const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), prevCandleLightingDate));
             filtered = itemsAfterMostRecentCandleLighting;
