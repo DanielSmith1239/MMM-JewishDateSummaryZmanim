@@ -294,7 +294,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         const nextFastEnd = itemsAfterNow.filter(item => item["title"] === "Fast ends")[0];
         const nextFastEndDate = new Date(nextFastEnd["date"]);
         const fastStartBeforeItems = items.filter(item => item["title"] === "Fast begins" 
-                                       && this.isAfterDate(nextFastEndDate, (new Date(item["date"]))))[0];
+                                       && this.isAfterDate(nextFastEndDate, (new Date(item["date"]))));
         const fastStart = fastStartBeforeItems[fastStartBeforeItems.length - 1];
         const fastStartDate = new Date(fastStart["date"]);
         // Show fast day if:
