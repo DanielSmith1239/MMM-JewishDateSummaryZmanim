@@ -179,7 +179,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 dateEl.innerHTML = day;
                 dateEl.style = "padding-bottom: 5px;";
                 if (i > 0) {
-                    dateEl.style = "padding-bottom: 5px; padding-top: 15px;";
+                    e = dateEl.style + " padding-top: 15px;";
                 }
                 wrapper.appendChild(dateEl);
                 
