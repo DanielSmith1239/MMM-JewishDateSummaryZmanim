@@ -34,7 +34,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     // Define start sequence.
     start: function() {
         //this.today = new Date();
-        this.today = new Date("2022-09-28T20:04:00-04:00");
+        this.today = new Date("2022-09-27T20:04:00-04:00");
         
         Log.info("Starting module: " + this.name);
 
@@ -85,6 +85,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         
         this.items = this.filterResults(this.items);
         
+        var fastDate = null;
         var candleLightingDate = null;
         var candleLightingDates = [];
         
@@ -138,7 +139,13 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             }
             
             if (isFastDay) {
-                date = this.processMemo(item["memo"]);
+                if (fastDate == null) {
+                    const tmroStr = (this.today.getDate() === actualDate.getDate())
+                        "Tomorrow: " : "";
+                    fastDate = tmroStr + this.processMemo(item["memo"]);
+                }
+                
+                date = fastDate;
             }
             
             
