@@ -118,7 +118,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 if (item["memo"] != null) {
                     const today = this.today;
                     date = this.processMemo(item["memo"]);
-                    const isToday = this.items.some(item => isToday(new Date(item["date"])));
+                    const isToday = this.items.some(item => this.isToday(new Date(item["date"])));
                     if (!isToday) { date = date + " (" + dateStr + ")"; }
                 }
                 candleLightingDates.push(dateStr);
