@@ -177,8 +177,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var dateEl = document.createElement("div");
                 dateEl.className = "small bright";
                 dateEl.innerHTML = day;
+                dateEl.style = "padding-bottom: 5px;";
                 if (i > 0) {
-                    dateEl.style = "padding-top: 10px;";
+                    dateEl.style += " padding-top: 15px;";
                 }
                 wrapper.appendChild(dateEl);
                 
