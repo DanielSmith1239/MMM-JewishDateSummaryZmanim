@@ -111,7 +111,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 const clockComponents = timeComponents[0].split(":");
                 const amPm = timeComponents[1].toLowerCase();
                 
-                const timeTitle = clockComponents[0] + clockComponents[1] + amPm;
+                const timeTitle = clockComponents[0] + ":" + clockComponents[1] + amPm;
                 
                 if (title === "Fast ends") {
                     title = "🍽️  " + timeTitle;
@@ -193,7 +193,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
                     isToday = (new Date(item["date"])).getDate() === this.today.getDate();
                     
-                    if (dayEvents[e].includes("✨") || dayEvents[e].includes("🕯️")) {
+                    if (dayEvents[e].includes("✨") 
+                            || dayEvents[e].includes("🕯️")
+                            || dayEvents[e].includes("🛑")
+                            || dayEvents[e].includes("🍽️")) {
                         eventEl.style = "display: inline;";
                     }
                     
