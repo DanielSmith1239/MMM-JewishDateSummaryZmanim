@@ -152,6 +152,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var dateEl = document.createElement("div");
                 dateEl.className = "small bright";
                 dateEl.innerHTML = day;
+                if (i > 0) {
+                    dateEl.style = "padding-top: 15px;";
+                }
                 wrapper.appendChild(dateEl);
                 
                 var processedCandleLighting = false;
