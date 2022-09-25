@@ -114,20 +114,14 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 date = "Shabbos " + dateStr;
             }
             
-            if (item["memo"] != null) {
-                const today = this.today;
-                const isToday = today.getDate() === actualDate.getDate();
-                date = this.processMemo(item["memo"]);
-                if (!isToday) { date = date + " (" + dateStr + ")"; }
-            }
             
             if (candleLightingDate == null && isCandleLighting) {
-//                 if (item["memo"] != null) {
-//                     const today = this.today;
-//                     const isToday = today.getDate() === actualDate.getDate();
-//                     date = this.processMemo(item["memo"]);
-//                     if (!isToday) { date = date + " (" + dateStr + ")"; }
-//                 }
+                if (item["memo"] != null) {
+                    const today = this.today;
+                    const isToday = today.getDate() === actualDate.getDate();
+                    date = this.processMemo(item["memo"]);
+                    if (!isToday) { date = date + " (" + dateStr + ")"; }
+                }
                 candleLightingDates.push(dateStr);
                 candleLightingDate = date;
             }
@@ -154,7 +148,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var eventDate = 
                 
                 dateEl = document.createElement("div");
-                dateEl.className = "small";
+                dateEl.className = "small bright";
                 
                 dateEl.innerHTML = day;
                                 
@@ -170,10 +164,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     const item = items[titles.indexOf(dayEvents[e])];
 
                     isToday = (new Date(item["date"])).getDate() === this.today.getDate();
-                    
-                    if (isToday) {
-                        eventEl.className = eventEl.className + " bright";
-                    }
                     
                     if (dayEvents[e].includes("✨") || dayEvents[e].includes("🕯️")) {
                         eventEl.style = "display: inline;";
