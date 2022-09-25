@@ -307,8 +307,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         const fastStartsTomorrow = startOnlyDate.getTime() === tomorrow.getTime();
         
         const shouldShowFastDay = fastStartsTomorrow || (
-                this.isAfterDate(this.today, fastStartDate) && this.isAfterToday(nextFastEndDate);
-            );
+            this.isAfterDate(this.today, fastStartDate) && this.isAfterToday(nextFastEndDate));
         
         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate())
                                                     && item["category"] != "candles"
