@@ -354,33 +354,41 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
             const itemDate = new Date(item["date"]);
             
-            if (this.isAfterDate(itemDate, prevHavdallahDate)) {
-                console.log("after");
-            }
-            
             return this.isAfterDate(itemDate, prevHavdallahDate)
                 && this.isAfterDate(nextHavdallahDate, itemDate);
         });
         
-        // Fast days
-        const nextFastEnd = itemsAfterNow.filter(item => item["title"] === "Fast ends")[0];
-        const nextFastEndDate = new Date(nextFastEnd["date"]);
-        const fastStartBeforeItems = items.filter(item => item["title"] === "Fast begins" 
-                                       && this.isAfterDate(nextFastEndDate, (new Date(item["date"]))));
-        const fastStart = fastStartBeforeItems[fastStartBeforeItems.length - 1];
-        const fastStartDate = new Date(fastStart["date"]);
-        // Show fast day if:
-        // 1. In middle (current day has "Fast start" or "Fast end" items, or in between)
-        // 2. Tomorrow has "Fast start" item
-        var tomorrow = new Date(this.today.getTime());
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(0, 0, 0);
-        var startOnlyDate = new Date(fastStartDate.getTime());
-        startOnlyDate.setHours(0, 0, 0);
-        const fastStartsTomorrow = startOnlyDate.getTime() === tomorrow.getTime();
         
-        const shouldShowFastDay = fastStartsTomorrow || (
-            this.isAfterDate(this.today, fastStartDate) && this.isAfterToday(nextFastEndDate));
+        // Fast days
+        var fastItems = []
+        const nextFastEndItems = itemsAfterNow.filter(item => item["title"] === "Fast ends");
+        if (nextFastEndItems.length > 0) {
+            const nextFastEnd = nextFastEndItems[0];
+
+            const nextFastEndDate = new Date(nextFastEnd["date"]);
+            const fastStartBeforeItems = items.filter(item => item["title"] === "Fast begins" 
+                                           && this.isAfterDate(nextFastEndDate, (new Date(item["date"]))));
+            const fastStart = fastStartBeforeItems[fastStartBeforeItems.length - 1];
+            const fastStartDate = new Date(fastStart["date"]);
+            // Show fast day if:
+            // 1. In middle (current day has "Fast start" or "Fast end" items, or in between)
+            // 2. Tomorrow has "Fast start" item
+            var tomorrow = new Date(this.today.getTime());
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0);
+            var startOnlyDate = new Date(fastStartDate.getTime());
+            startOnlyDate.setHours(0, 0, 0);
+            const fastStartsTomorrow = startOnlyDate.getTime() === tomorrow.getTime();
+
+            const shouldShowFastDay = fastStartsTomorrow || (
+                this.isAfterDate(this.today, fastStartDate) && this.isAfterToday(nextFastEndDate));
+            
+            if (shouldShowFastDay) {
+                fastItems = [fastStart, nextFastEnd];
+            }
+        }
+    
+        
         
         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate())
                                                     && item["category"] != "candles"
@@ -389,10 +397,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                                                );
         
         
-        
-//         return [...todayItems, ...fastItems, ...candleLightings, havdallahItemsAfterNow[0]];
-        const fastItems = shouldShowFastDay ? [fastStart, nextFastEnd] : [];
-        return [...todayItems, ...fastItems, ...candleLightings, havdallahItemsAfterNow[0]];
+       return [...todayItems, ...fastItems, ...candleLightings, havdallahItemsAfterNow[0]];
         
     },
 
