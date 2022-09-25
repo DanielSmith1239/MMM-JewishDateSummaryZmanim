@@ -33,6 +33,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
     // Define start sequence.
     start: function() {
+        //this.today = new Date();
+        this.today = new Date("2022-09-24T20:04:00-04:00");
+        
         Log.info("Starting module: " + this.name);
 
         this.items = [];
@@ -168,9 +171,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
 
     updateTimes: function() {
-        //this.today = new Date();
-        this.today = new Date("2022-09-24T20:04:00-04:00");
-        
         var self = this;
         var url = self.makeURL();
         var retry = true;
@@ -269,7 +269,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         // Between candle lighting and havdallah
         else {
             console.log("between dates");
-            const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), firstCandleLightingDate));
+            const prevCandleLightingDates = items.filter(e => item["category"] === "candles"
+                                                       && this.isAfterDate(firstCandleLightingDate, new Date(item["date"]));
+            const prevCandleLightingDate = prevCandleLightingDates[prevCandleLightingDates.length - 1];
+            const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), prevCandleLightingDate));
             filtered = itemsAfterMostRecentCandleLighting;
         }
         
