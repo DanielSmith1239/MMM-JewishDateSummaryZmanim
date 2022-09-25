@@ -162,7 +162,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     
                     const item = items[titles.indexOf(e)];
 
-                    isToday = item.getDate() === this.today.getDate();
+                    isToday = (new Date(item["date"])).getDate() === this.today.getDate();
                     
                     if (isToday) {
                         eventEl.className = eventEl.className + " bright";
