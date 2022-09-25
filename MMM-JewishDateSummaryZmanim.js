@@ -219,9 +219,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
     
     isAfterDate: function(date, isAfter) {
-      return date.getFullYear() >= isAfter.getFullYear() &&
-        date.getMonth() >= isAfter.getMonth() &&
-        date.getDate() >= isAfter.getDate();
+        const a = new Date(date.getTime());
+        const b = new Date(isAfter.getTime());
+        a.setHours(0, 0, 0);
+        b.setHours(0, 0, 0);
+      return a.getTime() >= b.getTime();
     },
     
     isAfterToday: function(date) {
@@ -230,10 +232,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
     
     isToday: function(date) {
-      const today = this.today;
-      return date.getFullYear() === today.getFullYear() &&
-        date.getMonth() === today.getMonth() &&
-        date.getDate() === today.getDate();
+        const a = new Date(this.today.getTime());
+        const b = new Date(date.getTime());
+        a.setHours(0, 0, 0);
+        b.setHours(0, 0, 0);
+        return a.getTime() === b.getTime();
     },
     
     filterResults: function(items) {
