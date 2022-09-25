@@ -130,13 +130,13 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (candleLightingDate != null && (isCandleLighting || isHavdallah)) {
                 candleLightingDates.push(dateStr);
                 date = candleLightingDate;
-                dateItems[dateItems.length - 1].push(actualDate);
             } else if (actualDate.getDay() === 5) {
                 date = "Shabbos " + dateStr;
             }
             
             if (isFastDay) {
                 date = this.processMemo(item["memo"]);
+                
             }
             
             
@@ -154,9 +154,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 
                 candleLightingDates.push(dateStr);
                 candleLightingDate = date;
-                
-                dateTitles.push(date);
-                dateItems.push([actualDate]);
             }
 
             if (events.hasOwnProperty(date)) {
@@ -164,6 +161,13 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             }
             else {
                 events[date] = [title];
+            }
+            
+            if (!dateTitles.includes(date)) {
+                dateTitles.push(date);
+                dateItems.push([actualDate]);
+            } else {
+                dateItems[dateItems.length - 1].push(actualDate);
             }
         }
 
