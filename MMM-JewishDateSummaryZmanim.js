@@ -157,7 +157,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 for (var e in dayEvents) {
                     var eventEl = document.createElement("div");
                     eventEl.className = "medium";
-                    if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 1) {
+                    if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 2) {
                         eventEl.style = "float: left;";
                     } else if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 3) {
                         eventEl.style = processedCandleLighting ? "float: left;" : "float: right;";
@@ -165,7 +165,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                             isMinorCandleLighting = true;
                         }
                         processedCandleLighting = true;
-                    } else if (dayEvents[e].includes("✨") && candleLightingDates.length === 1) {
+                    } else if (dayEvents[e].includes("✨") && candleLightingDates.length === 2) {
                         eventEl.style = "float: right;";
                     }
                     
