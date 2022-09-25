@@ -159,7 +159,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     eventEl.className = "medium";
                     if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 1) {
                         eventEl.style = "float: left;";
-                    } else if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 2) {
+                    } else if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 3) {
                         eventEl.style = processedCandleLighting ? "float: left;" : "float: right;";
                         if (!processedCandleLighting) {
                             isMinorCandleLighting = true;
