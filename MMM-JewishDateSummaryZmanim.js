@@ -47,7 +47,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         var ret = memo;
         
         // Rosh Hashana
-        if (ret.includes("Rosh Hashana 5")) { return "Rosh Hashana"; }
         
         // Chol hamoed
         if (ret.includes(" (CH''M)")) { ret = ret.replace(" (CH''M)", ""); }
@@ -118,8 +117,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (candleLightingDate == null && isCandleLighting) {
                 if (item["memo"] != null) {
                     const today = this.today;
-                    const isToday = today.getDate() === actualDate.getDate();
                     date = this.processMemo(item["memo"]);
+                    const isToday = this.items.any(item => isToday(new Date(item["date"])));
                     if (!isToday) { date = date + " (" + dateStr + ")"; }
                 }
                 candleLightingDates.push(dateStr);
