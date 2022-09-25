@@ -139,7 +139,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
             if (isFastDay) {
                 date = this.processMemo(item["memo"]);
-                
             }
             
             
@@ -173,8 +172,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 dateItems[dateItems.length - 1].push(actualDate);
             }
             
-            items.push[item];
-            titles.push[title];
+            items.push(item);
+            titles.push(title);
         }
 
         const eventKeys = Object.keys(events).slice(0, 3);
