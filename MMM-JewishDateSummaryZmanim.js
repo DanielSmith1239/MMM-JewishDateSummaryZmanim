@@ -156,7 +156,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var processedCandleLighting = false;
                 var isMinorCandleLighting = false;
 
-                for (let [index, e] of dayEvents.entries()) {
+                for (var e in dayEvents) {
                     var eventEl = document.createElement("div");
                     eventEl.className = "medium";
                     
