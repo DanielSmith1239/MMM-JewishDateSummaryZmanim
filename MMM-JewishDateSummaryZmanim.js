@@ -261,9 +261,14 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         
         var filtered = [];
         
+        // Normal
         if (this.isAfterDate(firstHavdallahDate, firstCandleLightingDate) && this.isAfterDate(firstFastEndDate, firstFastStartDate)) {
+            console.log("normal");
             filtered = itemsAfterNow;
-        } else {
+        } 
+        // Between candle lighting and havdallah
+        else {
+            console.log("between dates");
             const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), firstCandleLightingDate));
             filtered = itemsAfterMostRecentCandleLighting;
         }
