@@ -168,7 +168,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
 
     updateTimes: function() {
-        this.today = new Date();
+        //this.today = new Date();
+        this.today = new Date("2022-09-24T20:04:00-04:00");
+        
         var self = this;
         var url = self.makeURL();
         var retry = true;
