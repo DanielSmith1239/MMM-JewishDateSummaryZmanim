@@ -248,52 +248,69 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         yesterday.setDate(yesterday.getDate() - 1);
         
         const itemsAfterNow = items.filter(item => this.isAfterToday(moment(item["date"]).toDate()));
+        const itemsBeforeNow = items.filter(item => !this.isAfterToday(new Date(item["date"])));
         
-        const candleLightingItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "candles");
+//         const candleLightingItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "candles");
         const havdallahItemsAfterNow = itemsAfterNow.filter(item => item["category"] === "havdalah");
-        const fastStartAfterNow = itemsAfterNow.filter(item => item["title"] === "Fast begins");
-        const fastEndAfterNow = itemsAfterNow.filter(item => item["title"] === "Fast ends");
+        const havdallahItemsBeforeNow = itemsBeforeNow.filter(item => item["category"] === "havdalah");
         
-        const firstCandleLightingDate = moment(candleLightingItemsAfterNow[0]["date"]).toDate();
-        const firstHavdallahDate = moment(havdallahItemsAfterNow[0]["date"]).toDate();
-        const firstFastStartDate = moment(fastStartAfterNow[0]["date"]).toDate();
-        const firstFastEndDate = moment(fastEndAfterNow[0]["date"]).toDate();
+        const nextHavdallahDate = new Date(havdallahItemsAfterNow[0]["date"]);
+        const prevHavdallahDate = new Date(havdallahItemsBeforeNow[havdallahItemsBeforeNow.length - 1]["date"]);
+        const candleLightings = items.filter(item => {
+            if (item["category"] !== "candles") { return false; }
+            
+            const itemDate = new Date(item["date"]);
+            
+            return this.isAfterDate(itemDate, prevHavdallahDate)
+                && this.isAfterDate(nextHavdallahDate, itemDate);
+        }            
         
-        var filtered = [];
+
+//         const fastStartAfterNow = itemsAfterNow.filter(item => item["title"] === "Fast begins");
+//         const fastEndAfterNow = itemsAfterNow.filter(item => item["title"] === "Fast ends");
         
-        // Normal
-        if (this.isAfterDate(firstHavdallahDate, firstCandleLightingDate) && this.isAfterDate(firstFastEndDate, firstFastStartDate)) {
-            console.log("normal");
-            filtered = itemsAfterNow;
-        } 
-        // Between candle lighting and havdallah
-        else {
-            console.log("between dates");
-            const prevCandleLightingDates = items.filter(item => item["category"] === "candles"
-                                                       && this.isAfterDate(firstCandleLightingDate, new Date(item["date"])));
-            const prevCandleLighting = prevCandleLightingDates[prevCandleLightingDates.length - 1];
-            const prevCandleLightingDate = new Date(prevCandleLighting["date"]);
-            const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), prevCandleLightingDate));
-            filtered = itemsAfterMostRecentCandleLighting;
-        }
+//         const firstCandleLightingDate = moment(candleLightingItemsAfterNow[0]["date"]).toDate();
+//         const firstFastStartDate = moment(fastStartAfterNow[0]["date"]).toDate();
+//         const firstFastEndDate = moment(fastEndAfterNow[0]["date"]).toDate();
         
-        const candleLightings = filtered.filter(item => item["category"] === "candles"
-                                               && this.isAfterDate(firstHavdallahDate, moment(item["date"]).toDate()));  
-        
-        const fastItems = filtered.filter(item => item["title"].includes("Fast begins")
-                                               && this.isAfterDate(moment(item["date"]).toDate(), yesterday)
-                                               && this.isAfterDate(tomorrow, moment(item["date"]).toDate())
-                                               && this.isAfterDate(firstFastEndDate, moment(item["date"]).toDate())
-                                                                );
-        
-        const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate())
-                                                    && item["category"] != "candles"
-                                                    && item["category"] != "havdalah"
-                                               );
+//         var filtered = [];
         
         
         
-        return [...todayItems, ...fastItems, ...candleLightings, havdallahItemsAfterNow[0]];
+//         // Normal
+//         if (this.isAfterDate(firstHavdallahDate, firstCandleLightingDate) && this.isAfterDate(firstFastEndDate, firstFastStartDate)) {
+//             console.log("normal");
+//             filtered = itemsAfterNow;
+//         } 
+//         // Between candle lighting and havdallah
+//         else {
+//             console.log("between dates");
+//             const prevCandleLightingDates = items.filter(item => item["category"] === "candles"
+//                                                        && this.isAfterDate(firstCandleLightingDate, new Date(item["date"])));
+//             const prevCandleLighting = prevCandleLightingDates[prevCandleLightingDates.length - 1];
+//             const prevCandleLightingDate = new Date(prevCandleLighting["date"]);
+//             const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), prevCandleLightingDate));
+//             filtered = itemsAfterMostRecentCandleLighting;
+//         }
+        
+//         const candleLightings = filtered.filter(item => item["category"] === "candles"
+//                                                && this.isAfterDate(firstHavdallahDate, moment(item["date"]).toDate()));  
+        
+//         const fastItems = filtered.filter(item => item["title"].includes("Fast begins")
+//                                                && this.isAfterDate(moment(item["date"]).toDate(), yesterday)
+//                                                && this.isAfterDate(tomorrow, moment(item["date"]).toDate())
+//                                                && this.isAfterDate(firstFastEndDate, moment(item["date"]).toDate())
+//                                                                 );
+        
+//         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate())
+//                                                     && item["category"] != "candles"
+//                                                     && item["category"] != "havdalah"
+//                                                );
+        
+        
+        
+//         return [...todayItems, ...fastItems, ...candleLightings, havdallahItemsAfterNow[0]];
+        return [...candleLightings, havdallahItemsAfterNow[0]];
         
     },
 
