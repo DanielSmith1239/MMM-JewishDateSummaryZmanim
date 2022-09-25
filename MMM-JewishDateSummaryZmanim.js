@@ -122,12 +122,12 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             }
             
             if (candleLightingDate == null && isCandleLighting) {
-                if (item["memo"] != null) {
-                    const today = this.today;
-                    const isToday = today.getDate() === actualDate.getDate();
-                    date = this.processMemo(item["memo"]);
-                    if (!isToday) { date = date + " (" + dateStr + ")"; }
-                }
+//                 if (item["memo"] != null) {
+//                     const today = this.today;
+//                     const isToday = today.getDate() === actualDate.getDate();
+//                     date = this.processMemo(item["memo"]);
+//                     if (!isToday) { date = date + " (" + dateStr + ")"; }
+//                 }
                 candleLightingDates.push(dateStr);
                 candleLightingDate = date;
             }
