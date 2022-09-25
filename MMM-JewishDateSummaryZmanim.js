@@ -34,7 +34,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     // Define start sequence.
     start: function() {
         //this.today = new Date();
-        this.today = new Date("2022-09-28T20:04:00-04:00");
+        this.today = new Date("2022-09-26T20:04:00-04:00");
         
         Log.info("Starting module: " + this.name);
 
