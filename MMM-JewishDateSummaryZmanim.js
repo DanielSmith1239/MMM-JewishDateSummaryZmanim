@@ -158,20 +158,23 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     var eventEl = document.createElement("div");
                     eventEl.className = "medium";
                     
+                    if (dayEvents[e].includes("✨") || dayEvents[e].includes("🕯️")) {
+                        eventEl.style = "display: inline;";
+                    }
+                    
                     if (dayEvents[e].includes("🕯️")) {
                         if (processedCandleLighting) {
                             isMinorCandleLighting = true;
                         } else {
-                            eventEl.style = "padding-right: 25px;";
+                            eventEl.style = eventEl.style + "padding-right: 25px;";
                         }
                         
                         processedCandleLighting = true;
                     }
-                        
+                    
+                      
                     if (dayEvents[e].includes("✨") && candleLightingDates.length >= 3) {
                         eventEl.style = "";
-                    } else if (dayEvents[e].includes("✨") || dayEvents[e].includes("🕯️")) {
-                        eventEl.style += " display: inline";
                     }
                     
                     if (isToday && !isMinorCandleLighting) { eventEl.className = eventEl.className + " bright"; }
