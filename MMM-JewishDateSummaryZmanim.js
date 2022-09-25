@@ -156,7 +156,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 candleLightingDate = date;
                 
                 dateTitles.push(date);
-                dateItems.push(actualDate);
+                dateItems.push([actualDate]);
             }
 
             if (events.hasOwnProperty(date)) {
