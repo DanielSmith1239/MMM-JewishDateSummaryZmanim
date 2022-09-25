@@ -166,7 +166,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                         if (processedCandleLighting) {
                             isMinorCandleLighting = true;
                         } else {
-                            eventEl.style = eventEl.style + "padding-right: 25px;";
+                            eventEl.style = "display: inline; padding-right: 25px;";
                         }
                         
                         processedCandleLighting = true;
