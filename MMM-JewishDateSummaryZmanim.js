@@ -270,7 +270,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         else {
             console.log("between dates");
             const prevCandleLightingDates = items.filter(e => item["category"] === "candles"
-                                                       && this.isAfterDate(firstCandleLightingDate, new Date(item["date"]));
+                                                       && this.isAfterDate(firstCandleLightingDate, new Date(item["date"])));
             const prevCandleLightingDate = prevCandleLightingDates[prevCandleLightingDates.length - 1];
             const itemsAfterMostRecentCandleLighting = items.filter(item => this.isAfterDate(moment(item["date"]).toDate(), prevCandleLightingDate));
             filtered = itemsAfterMostRecentCandleLighting;
