@@ -116,10 +116,14 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
             if (candleLightingDate == null && isCandleLighting) {
                 if (item["memo"] != null) {
-                    const today = this.today;
-                    date = this.processMemo(item["memo"]);
-                    const isToday = this.items.some(item => this.isToday(new Date(item["date"])));
-                    if (!isToday) { date = date + " (" + dateStr + ")"; }
+                    if (item["memo"].includes("Parash")) {
+                        date += "|" + item["memo"];
+                    } else {
+                        const today = this.today;
+                        date = this.processMemo(item["memo"]);
+                        const includesToday = this.items.some(item => this.isToday(new Date(item["date"])));
+                        if (!includesToday) { date = date + " (" + dateStr + ")"; }
+                    }
                 }
                 candleLightingDates.push(dateStr);
                 candleLightingDate = date;
@@ -144,14 +148,22 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
             if (dayEvents) {
                 var isToday = false;
-                var eventDate = 
                 
-                dateEl = document.createElement("div");
+                const splitDate = day.split("|");
+                const dayTitle = splitDate[0];
+                
+                var dateEl = document.createElement("div");
                 dateEl.className = "small bright";
-                
-                dateEl.innerHTML = day;
-                                
+                dateEl.innerHTML = dayTitle;
                 wrapper.appendChild(dateEl);
+                
+                if (splitDate.length > 1) {
+                    const parsha = splitDate[1];
+                    var parshaEl = document.createElement("div");
+                    parshaEl.className = "small";
+                    parshaEl.innerHTML = parsha;
+                    wrapper.appendChild(parshaEl);
+                }
                 
                 var processedCandleLighting = false;
                 var isMinorCandleLighting = false;
