@@ -261,6 +261,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
             const itemDate = new Date(item["date"]);
             
+            if (this.isAfterDate(itemDate, prevHavdallahDate)) {
+                console.log("after");
+            }
+            
             return this.isAfterDate(itemDate, prevHavdallahDate)
                 && this.isAfterDate(nextHavdallahDate, itemDate);
         });
