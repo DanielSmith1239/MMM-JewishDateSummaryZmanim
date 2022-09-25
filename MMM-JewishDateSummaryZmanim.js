@@ -150,16 +150,27 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 dateEl.innerHTML = day;
                                 
                 wrapper.appendChild(dateEl);
+                
+                var processedCandleLighting = false;
+                var isMinorCandleLighting = false;
 
                 for (var e in dayEvents) {
                     var eventEl = document.createElement("div");
                     eventEl.className = "medium";
                     if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 1) {
                         eventEl.style = "float: left;";
+                    } else if (dayEvents[e].includes("🕯️") && candleLightingDates.length === 2) {
+                        eventEl.style = processedCandleLighting ? "float: left;" : "float: right;";
+                        if (!processedCandleLighting) {
+                            isMinorCandleLighting = true;
+                        }
+                        processedCandleLighting = true;
                     } else if (dayEvents[e].includes("✨") && candleLightingDates.length === 1) {
                         eventEl.style = "float: right;";
                     }
-                    if (isToday) { eventEl.className = eventEl.className + " bright"; }
+                    
+                    if (isToday && !isMinorCandleLighting) { eventEl.className = eventEl.className + " bright"; }
+                    isMinorCandleLighting = false;
                     eventEl.innerHTML = dayEvents[e];
 //                     eventEl.style["text-indent"] = "1em";
                     wrapper.appendChild(eventEl);
