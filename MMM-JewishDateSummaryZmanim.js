@@ -232,10 +232,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     }
                     
                     if (dayEvents[e].includes("🕯️")) {
-                        if (processedCandleLighting) {
-                            isMinorCandleLighting = true;
-                            dayEvents[e] = dayEvents[e].replace("🕯️  ", "🕯️2️⃣  ");
-                        } else {
+                        if (!processedCandleLighting) {
                             eventEl.style = "display: inline; padding-right: 50px;";
                         }
                         
@@ -247,13 +244,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                         eventEl.style = "";
                     }
                     
-                    if (isToday && !isMinorCandleLighting) {
+                    if (isToday) {
                         eventEl.className = eventEl.className + " bright";
                     }
                     
-                    isMinorCandleLighting = false;
                     eventEl.innerHTML = dayEvents[e];
-//                     eventEl.style["text-indent"] = "1em";
                     wrapper.appendChild(eventEl);
                 }
             }
