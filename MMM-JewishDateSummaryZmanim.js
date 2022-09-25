@@ -165,7 +165,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     if (dayEvents[e].includes("🕯️")) {
                         if (processedCandleLighting) {
                             isMinorCandleLighting = true;
-                            dayEvents[e] = dayEvents[e].replace("🕯️  ", "Day 2: ");
+                            dayEvents[e] = dayEvents[e].replace("🕯️  ", "🕯️2️⃣  ");
                         } else {
                             eventEl.style = "display: inline; padding-right: 50px;";
                         }
@@ -234,7 +234,10 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         }
 
 //         var url = "https://www.hebcal.com/shabbat/?cfg=json&b=" + c.minutesBefore + "&m=" + c.minutesAfter + "&a=" + ashkenaz + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
-        var url = "https://www.hebcal.com/hebcal?v=1&cfg=json&b=" + c.minutesBefore + "&a=" + ashkenaz + "maj=on&min=on&mod=on&nx=on&year=now&month=x&ss=on&mf=on&c=on" + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
+        var url = "https://www.hebcal.com/hebcal?v=1&cfg=json&b=" + c.minutesBefore 
+            + "&a=" + ashkenaz + "maj=on&min=on&mod=on&nx=on&year=now&month=x&ss=on&mf=on&c=on"
+            + "&o=on&nx=on&s=on&leyning=off"
+            + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
         return url
     },
     
@@ -329,15 +332,15 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 //                                                && this.isAfterDate(firstFastEndDate, moment(item["date"]).toDate())
 //                                                                 );
         
-//         const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate())
-//                                                     && item["category"] != "candles"
-//                                                     && item["category"] != "havdalah"
-//                                                );
+        const todayItems = itemsAfterNow.filter(item => this.isToday(moment(item["date"]).toDate())
+                                                    && item["category"] != "candles"
+                                                    && item["category"] != "havdalah"
+                                               );
         
         
         
 //         return [...todayItems, ...fastItems, ...candleLightings, havdallahItemsAfterNow[0]];
-        return [...candleLightings, havdallahItemsAfterNow[0]];
+        return [...todayItems, ...candleLightings, havdallahItemsAfterNow[0]];
         
     },
 
