@@ -140,7 +140,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
             if (isFastDay) {
                 if (fastDate == null) {
-                    const tmroStr = (this.today.getDate() === actualDate.getDate())
+                    const tmroStr = (this.today.getDate() !== actualDate.getDate())
                         ? "Tomorrow: " : "";
                     fastDate = tmroStr + this.processMemo(item["memo"]);
                 }
