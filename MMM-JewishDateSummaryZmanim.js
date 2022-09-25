@@ -110,7 +110,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             
             if (candleLightingDate == null && isCandleLighting) {
                 if (item["memo"] != null) {
-                    const today = new Date();
+                    const today = this.today;
                     const isToday = today.getDate() === actualDate.getDate();
                     date = this.processMemo(item["memo"]);
                     if (!isToday) { date = date + " (" + dateStr + ")"; }
@@ -136,7 +136,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (dayEvents) {
                 var isToday = false;
                 if (day.includes("/")) {
-                    const today = new Date();
+                    const today = this.today;
                     const dateStr = (today.getMonth() + 1)+ "/" + today.getDate();
                     isToday = candleLightingDates.includes(dateStr);
                 }
@@ -149,7 +149,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 wrapper.appendChild(dateEl);
 
                 for (var e in dayEvents) {
-                    eventEl = document.createElement("div");
+                    var eventEl = document.createElement("div");
                     eventEl.className = "medium";
                     if (dayEvents[e].includes("🕯️")) {
                         eventEl.style = "float: left;";
@@ -168,6 +168,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
 
     updateTimes: function() {
+        this.today = new Date();
         var self = this;
         var url = self.makeURL();
         var retry = true;
@@ -222,12 +223,12 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
     
     isAfterToday: function(date) {
-      const today = new Date();
+      const today = this.today;
       return this.isAfterDate(date, today)
     },
     
     isToday: function(date) {
-      const today = new Date();
+      const today = this.today;
       return date.getFullYear() === today.getFullYear() &&
         date.getMonth() === today.getMonth() &&
         date.getDate() === today.getDate();
@@ -237,11 +238,11 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         // TODO:
         // - Check if havdalah is before candle lighting beginning of year
         // - Check if missing havdallah end of year
-        const today = new Date();
-        var tomorrow = new Date();
+        const today = this.today;
+        var tomorrow = this.today;
         tomorrow.setDate(tomorrow.getDate() + 1);
         
-        var yesterday = new Date();
+        var yesterday = this.today;
         yesterday.setDate(yesterday.getDate() - 1);
         
         const itemsAfterNow = items.filter(item => this.isAfterToday(moment(item["date"]).toDate()));
