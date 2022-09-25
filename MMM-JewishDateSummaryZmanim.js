@@ -90,6 +90,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         
         var dateTitles = [];
         var dateItems = [];
+        
+        var items = [];
+        var titles = [];
 
         for (var i in this.items) {
             var item = this.items[i];
@@ -169,6 +172,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             } else {
                 dateItems[dateItems.length - 1].push(actualDate);
             }
+            
+            items.push[item];
+            titles.push[title];
         }
 
         const eventKeys = Object.keys(events).slice(0, 3);
