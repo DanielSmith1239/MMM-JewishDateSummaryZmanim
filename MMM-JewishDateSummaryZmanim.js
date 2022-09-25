@@ -88,8 +88,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         var candleLightingDate = null;
         var candleLightingDates = [];
         
-        var titles = [];
-        var items = [];
+        var dateTitles = [];
+        var dateItems = [];
 
         for (var i in this.items) {
             var item = this.items[i];
@@ -124,12 +124,13 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             const isCandleLighting = title.includes("🕯️");
             const isHavdallah = title.includes("✨");
             
-            const actualDate = moment(item["date"]).toDate();
+            const actualDate = new Date(item["date"]);
             const dateStr = (actualDate.getMonth() + 1) + "/" + actualDate.getDate();
             
             if (candleLightingDate != null && (isCandleLighting || isHavdallah)) {
                 candleLightingDates.push(dateStr);
                 date = candleLightingDate;
+                dateItems[dateItems.length - 1].push(actualDate);
             } else if (actualDate.getDay() === 5) {
                 date = "Shabbos " + dateStr;
             }
@@ -146,12 +147,16 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     } else {
                         const today = this.today;
                         date = this.processMemo(item["memo"]);
-                        const includesToday = this.items.some(item => this.isToday(new Date(item["date"])));
+                        const includesToday = this.items.some(item => this.isToday(actualDate));
                         if (!includesToday) { date = date + " (" + dateStr + ")"; }
                     }
                 }
+                
                 candleLightingDates.push(dateStr);
                 candleLightingDate = date;
+                
+                dateTitles.push(date);
+                dateItems.push(actualDate);
             }
 
             if (events.hasOwnProperty(date)) {
@@ -160,22 +165,27 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             else {
                 events[date] = [title];
             }
-            
-            titles.push(title);
-            items.push(item);
         }
 
-        eventKeys = Object.keys(events).slice(0, 3);
+        const eventKeys = Object.keys(events).slice(0, 3);
 
         for (var i in eventKeys) {
             var day = eventKeys[i];
             var dayEvents = events[eventKeys[i]];
+            
+            const eventDates = dateItems[dateTitles.indexOf(eventKeys[i])];
 
             if (dayEvents) {
                 var isToday = false;
                 
                 var dateEl = document.createElement("div");
-                dateEl.className = "small bright";
+                dateEl.className = "small";
+                
+                if (eventDates.some(date => date.getDate() === this.today.getDate())) {
+                    dateEl.className += " bright";
+                }
+                
+                
                 dateEl.innerHTML = day;
                 dateEl.style = "padding-bottom: 5px;";
                 if (i > 0) {
