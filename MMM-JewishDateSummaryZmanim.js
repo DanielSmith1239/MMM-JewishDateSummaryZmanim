@@ -160,7 +160,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                     var eventEl = document.createElement("div");
                     eventEl.className = "medium";
                     
-                    const item = items[titles.indexOf(e)];
+                    const item = items[titles.indexOf(dayEvents[e])];
 
                     isToday = (new Date(item["date"])).getDate() === this.today.getDate();
                     
