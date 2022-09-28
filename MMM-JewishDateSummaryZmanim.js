@@ -33,8 +33,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
     // Define start sequence.
     start: function() {
-        this.today = new Date();
-//         this.today = new Date("2022-09-29T20:04:00-04:00");
+        //this.today = new Date();
+         this.today = new Date("2022-09-28T05:04:00-04:00");
         
         Log.info("Starting module: " + this.name);
 
@@ -258,6 +258,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
 
     updateTimes: function() {
+        this.today = new Date("2022-09-28T05:04:00-04:00");
         var self = this;
         var url = self.makeURL();
         var retry = true;
@@ -312,9 +313,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
         const a = new Date(date.getTime());
         const b = new Date(isAfter.getTime());
-        if (a.getDate() === 27) {
-        console.log("27");
-        }
         a.setHours(0, 0, 0, 0);
         b.setHours(0, 0, 0, 0);
       
