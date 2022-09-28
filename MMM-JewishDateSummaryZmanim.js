@@ -112,18 +112,16 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 var timeStr = (new Date(item["date"])).toLocaleTimeString("en-US");
                 const timeComponents = timeStr.split(" ");
                 const clockComponents = timeComponents[0].split(":");
-                title = timeComponents[1];
-//                 const amPm = timeComponents[1].toLowerCase();
+                const amPm = timeComponents[1].toLowerCase();
+                const timeTitle = clockComponents[0] + ":" + clockComponents[1] + amPm;
                 
-//                 const timeTitle = clockComponents[0] + ":" + clockComponents[1] + amPm;
-                
-//                 if (title === "Fast ends") {
-// //                     title = "🍽️  " + timeTitle;
-//                     title = "PLATE  " + timeTitle;
-//                 } else if (title === "Fast begins") {
-// //                     title = "🛑  " + timeTitle;
-//                     title = "STOP  " + timeTitle;
-//                 }
+                if (title === "Fast ends") {
+//                     title = "🍽️  " + timeTitle;
+                    title = "PLATE  " + timeTitle;
+                } else if (title === "Fast begins") {
+//                     title = "🛑  " + timeTitle;
+                    title = "STOP  " + timeTitle;
+                }
             }
             
 
