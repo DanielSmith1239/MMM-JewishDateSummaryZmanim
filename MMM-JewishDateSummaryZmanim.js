@@ -109,21 +109,21 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (title.includes("Fast ")) {
                 isFastDay = true;
                 
-                var timeStr = (new Date(item["date"])).toLocaleString()
-                    .split(", ")[1];
-                const timeComponents = timeStr.split(" ");
-                const clockComponents = timeComponents[0].split(":");
-                const amPm = timeComponents[1].toLowerCase();
+//                 var timeStr = (new Date(item["date"])).toLocaleString()
+//                     .split(", ")[1];
+//                 const timeComponents = timeStr.split(" ");
+//                 const clockComponents = timeComponents[0].split(":");
+//                 const amPm = timeComponents[1].toLowerCase();
                 
-                const timeTitle = clockComponents[0] + ":" + clockComponents[1] + amPm;
+//                 const timeTitle = clockComponents[0] + ":" + clockComponents[1] + amPm;
                 
-                if (title === "Fast ends") {
-//                     title = "🍽️  " + timeTitle;
-                    title = "PLATE  " + timeTitle;
-                } else if (title === "Fast begins") {
-//                     title = "🛑  " + timeTitle;
-                    title = "STOP  " + timeTitle;
-                }
+//                 if (title === "Fast ends") {
+// //                     title = "🍽️  " + timeTitle;
+//                     title = "PLATE  " + timeTitle;
+//                 } else if (title === "Fast begins") {
+// //                     title = "🛑  " + timeTitle;
+//                     title = "STOP  " + timeTitle;
+//                 }
             }
             
 
