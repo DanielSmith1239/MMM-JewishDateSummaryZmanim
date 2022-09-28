@@ -116,11 +116,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 const timeTitle = clockComponents[0] + ":" + clockComponents[1] + amPm;
                 
                 if (title === "Fast ends") {
-//                     title = "🍽️  " + timeTitle;
-                    title = "PLATE  " + timeTitle;
+                    title = "🍽️  " + timeTitle;
                 } else if (title === "Fast begins") {
-//                     title = "🛑  " + timeTitle;
-                    title = "STOP  " + timeTitle;
+                    title = "🛑  " + timeTitle;
                 }
             }
             
