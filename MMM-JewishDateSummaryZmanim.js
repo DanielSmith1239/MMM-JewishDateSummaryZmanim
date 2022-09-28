@@ -109,8 +109,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (title.includes("Fast ")) {
                 isFastDay = true;
                 
-                var timeStr = (new Date(item["date"])).toLocaleString()
-                    .split(", ")[1];
+                var timeStr = (new Date(item["date"])).toLocaleTimeString("en-US");
                 const timeComponents = timeStr.split(" ");
                 const clockComponents = timeComponents[0].split(":");
                 title = timeComponents[1];
