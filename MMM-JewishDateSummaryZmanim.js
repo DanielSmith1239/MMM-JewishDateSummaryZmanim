@@ -111,7 +111,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 
                 var timeStr = (new Date(item["date"])).toLocaleString()
                     .split(", ")[1];
-//                 const timeComponents = timeStr.split(" ");
+                const timeComponents = timeStr.split(" ");
 //                 const clockComponents = timeComponents[0].split(":");
 //                 const amPm = timeComponents[1].toLowerCase();
                 
