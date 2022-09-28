@@ -315,8 +315,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         if (a.getDate() === 27) {
         console.log("27");
         }
-        a.setHours(0, 0, 0);
-        b.setHours(0, 0, 0);
+        a.setHours(0, 0, 0, 0);
+        b.setHours(0, 0, 0, 0);
       
       return a.getTime() >= b.getTime();
     },
@@ -329,8 +329,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     isToday: function(date) {
         const a = new Date(this.today.getTime());
         const b = new Date(date.getTime());
-        a.setHours(0, 0, 0);
-        b.setHours(0, 0, 0);
+        a.setHours(0, 0, 0, 0);
+        b.setHours(0, 0, 0, 0);
         return a.getTime() === b.getTime();
     },
     
@@ -375,9 +375,9 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             // 2. Tomorrow has "Fast start" item
             var tomorrow = new Date(this.today.getTime());
             tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(0, 0, 0);
+            tomorrow.setHours(0, 0, 0, 0);
             var startOnlyDate = new Date(fastStartDate.getTime());
-            startOnlyDate.setHours(0, 0, 0);
+            startOnlyDate.setHours(0, 0, 0, 0);
             const fastStartsTomorrow = startOnlyDate.getTime() === tomorrow.getTime();
 
             const shouldShowFastDay = fastStartsTomorrow || (
