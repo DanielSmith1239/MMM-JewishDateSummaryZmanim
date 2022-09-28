@@ -312,7 +312,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
         const a = new Date(date.getTime());
         const b = new Date(isAfter.getTime());
-        if (a.getDate() === 27 || b.getDate() == 27) {
+        if (a.getDate() === 27) {
         console.log("27");
         }
         a.setHours(0, 0, 0);
