@@ -261,6 +261,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         var self = this;
         var url = self.makeURL();
         var retry = true;
+        this.today = new Date();
 
         var timesRequest = new XMLHttpRequest();
         timesRequest.open("GET", url, true);
