@@ -309,11 +309,12 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     },
     
     isAfterDate: function(date, isAfter) {
+
+        const a = new Date(date.getTime());
+        const b = new Date(isAfter.getTime());
         if (a.getDate() === 27 || b.getDate() == 27) {
         console.log("27");
         }
-        const a = new Date(date.getTime());
-        const b = new Date(isAfter.getTime());
         a.setHours(0, 0, 0);
         b.setHours(0, 0, 0);
       
