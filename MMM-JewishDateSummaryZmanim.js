@@ -381,8 +381,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             startOnlyDate.setHours(0, 0, 0, 0);
             const fastStartsTomorrow = startOnlyDate.getTime() === tomorrow.getTime();
 
-            const shouldShowFastDay = fastStartsTomorrow || (
-                this.isAfterDate(this.today, fastStartDate) && this.isAfterToday(nextFastEndDate));
+            const shouldShowFastDay = false;//fastStartsTomorrow || (
+                //this.isAfterDate(this.today, fastStartDate) && this.isAfterToday(nextFastEndDate));
             
             if (shouldShowFastDay) {
                 fastItems = [fastStart, nextFastEnd];
