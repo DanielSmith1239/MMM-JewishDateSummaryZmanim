@@ -393,6 +393,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                                                     && item["category"] != "candles"
                                                     && item["category"] != "havdalah"
                                                     && item["subcat"] != "fast"
+                                                    && !item["title"].includes("Parash")
                                                );
         
         
