@@ -344,7 +344,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         const itemsBeforeNow = items.filter(item => !this.isAfterToday(new Date(item["date"])));
         
         const havdallahItemsAfterNow = itemsAfterNow.filter(item => item["title"].includes("Havdalah:"));
-        const havdallahItemsBeforeNow = itemsBeforeNow.filter(item => item["title"].includes("Havdalah:");
+        const havdallahItemsBeforeNow = itemsBeforeNow.filter(item => item["title"].includes("Havdalah:"));
         
         const nextHavdallahDate = new Date(havdallahItemsAfterNow[0]["date"]);
         const prevHavdallahDate = new Date(havdallahItemsBeforeNow[havdallahItemsBeforeNow.length - 1]["date"]);
