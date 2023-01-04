@@ -260,10 +260,12 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         var url = self.makeURL("now");
         this.today = new Date();
 
-        self.makeTimesRequest(url, function(times) {
+        self.makeTimesRequest(url, function(data) {
+            var times = data['items'];
             if (self.today.getDate() < 7 && self.today.getMonth() === 0) {
                 url = self.makeURL((self.today.getFullYear() - 1).toString());
-                self.makeTimesRequest(url, function(times2) {
+                self.makeTimesRequest(url, function(data2) {
+                    var times2 = data2['items'];
                     self.processTimes(times2 + times);
                 });
             } else {
@@ -412,13 +414,8 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         
     },
 
-    processTimes: function(data) {
-        if (!data || !data['items']) {
-            // Did not receive usable new data.
-            return;
-        }
-
-        this.items = data['items']
+    processTimes: function(items) {
+        this.items = items;
         this.loaded = true;
         this.updateDom(this.config.animationSpeed);
     }
