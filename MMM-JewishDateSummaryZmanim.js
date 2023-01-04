@@ -266,7 +266,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
                 url = self.makeURL((self.today.getFullYear() - 1).toString());
                 self.makeTimesRequest(url, function(data2) {
                     var times2 = data2['items'];
-                    self.processTimes(times2 + times);
+                    self.processTimes(times2.concat(times));
                 });
             } else {
                 self.processTimes(times);             
