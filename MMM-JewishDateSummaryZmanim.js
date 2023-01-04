@@ -257,16 +257,29 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
     updateTimes: function() {
         var self = this;
-        var url = self.makeURL();
+        var url = self.makeURL("now");
         var retry = true;
         this.today = new Date();
 
+        self.makeTimesRequest(url, function(times) {
+            if (this.today.getDate() < 7 $$ this.today.getMonth() === 1) {
+                url = self.makeURL((this.today.getFullYear() - 1).toString());
+                self.makeTimesRequest(url, function(times2) {
+                    self.processTimes(times2 + times);
+                });
+            } else {
+                self.processTimes(times);             
+            }
+        });
+    },
+    
+    makeTimesRequest: function(url, callback) {
         var timesRequest = new XMLHttpRequest();
         timesRequest.open("GET", url, true);
         timesRequest.onreadystatechange = function() {
             if (this.readyState === 4) {
                 if (this.status === 200) {
-                    self.processTimes(JSON.parse(this.response));
+                    callback(JSON.parse(this.response));
                 } else {
                     Log.error(self.name + ": Could not load shabbat updateTimes.");
                 }
@@ -291,7 +304,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         }, nextLoad);
     },
 
-    makeURL: function() {
+    makeURL: function(year) {
         var c = this.config
 
         var ashkenaz = "on"
@@ -301,7 +314,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
 
 //         var url = "https://www.hebcal.com/shabbat/?cfg=json&b=" + c.minutesBefore + "&m=" + c.minutesAfter + "&a=" + ashkenaz + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
         var url = "https://www.hebcal.com/hebcal?v=1&cfg=json&b=" + c.minutesBefore 
-            + "&a=" + ashkenaz + "maj=on&min=on&mod=on&nx=on&year=now&month=x&ss=on&mf=on&c=on"
+            + "&a=" + ashkenaz + "maj=on&min=on&mod=on&nx=on&year="+year+"&month=x&ss=on&mf=on&c=on"
             + "&o=on&nx=on&s=on&leyning=off"
             + "&geo=pos&latitude=" + c.latitude + "&longitude=" + c.longitude + "&tzid=" + c.tzid;
         return url
