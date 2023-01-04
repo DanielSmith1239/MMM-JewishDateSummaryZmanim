@@ -261,7 +261,7 @@ Module.register("MMM-JewishDateSummaryZmanim", {
         this.today = new Date();
 
         self.makeTimesRequest(url, function(times) {
-            if (self.today.getDate() < 7 && self.today.getMonth() === 1) {
+            if (self.today.getDate() < 7 && self.today.getMonth() === 0) {
                 url = self.makeURL((self.today.getFullYear() - 1).toString());
                 self.makeTimesRequest(url, function(times2) {
                     self.processTimes(times2 + times);
