@@ -258,7 +258,6 @@ Module.register("MMM-JewishDateSummaryZmanim", {
     updateTimes: function() {
         var self = this;
         var url = self.makeURL("now");
-        var retry = true;
         this.today = new Date();
 
         self.makeTimesRequest(url, function(times) {
@@ -280,13 +279,12 @@ Module.register("MMM-JewishDateSummaryZmanim", {
             if (this.readyState === 4) {
                 if (this.status === 200) {
                     callback(JSON.parse(this.response));
+                    return;
                 } else {
                     Log.error(self.name + ": Could not load shabbat updateTimes.");
                 }
 
-                if (retry) {
-                    self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
-                }
+                self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
             }
         };
         timesRequest.send();
